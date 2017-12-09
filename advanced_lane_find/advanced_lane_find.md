@@ -1318,3 +1318,16 @@ processed_video = video_input1.fl_image(process_image)
     CPU times: user 4min 42s, sys: 14.1 s, total: 4min 56s
     Wall time: 2min 44s
 
+
+## Discussion
+
+#### Most of the steps discussed in the early in this project worked all well smoothly, for example finding the corners from the chessboard, Dewarping the chessboard image and taking the distortion coefficients and applying them to the test images.  These were pretty straightforward.
+
+#### I faced little difficulty finding the right combination while calibrating and doing the perspective transformation of the images, because it was hard to find perfect single combination that fits all the testimages.  I wanted to have this dynamically done rather assinging these values statically.  I was not sure on how to do this dynamically so went with current approach.
+
+#### Then applying the different image kernel options like sobel and extracting the color information with different OpenCV techniques like R,G,B and H,L,S information gave me pretty good idea on which right combination to use while doing the combined Gradient Threshold, Magnitude threshold and Direction threshold.
+
+#### The final challenge for me was to find the sliding window and measuring the curvature and then applying them to all the test images.
+
+#### I would like revisit later time for the above two mentioned challenges to improve my accuracy.
+
