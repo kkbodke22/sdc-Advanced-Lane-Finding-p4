@@ -736,6 +736,8 @@ for image in images:
 
 ## Implement Sliding Windows and Fit a Polynomial
 
+#### With the histogram I am adding up the pixel values along each column in the image. In my thresholded binary image, pixels are either 0 or 1, so the two most prominent peaks in this histogram will be good indicators of the x-position of the base of the lane lines. I can use that as a starting point for where to search for the lines. From that point, I can use a sliding window, placed around the line centers, to find and follow the lines up to the top of the frame.
+
 
 
 ```python
@@ -901,6 +903,10 @@ def polyfit_using_prev_fit(binary_warped, left_fit_prev, right_fit_prev):
     return left_fit_new, right_fit_new, left_lane_inds, right_lane_inds
 ```
 
+### Skip the sliding windows once you know where the lines are and just search in a margin around the previous line position
+
+### The green shaded area shows where we searched for the lines this time. So, once you know where the lines are in one frame of video, you can do a highly targeted search for them in the next frame. This is equivalent to using a customized region of interest for each frame of video, and should help you track the lanes through sharp curves and tricky conditions. If you lose track of the lines, go back to your sliding windows search or other method to rediscover them.
+
 
 ```python
 # visualize the result on example image
@@ -954,10 +960,12 @@ print('...')
 
 
 
-![png](output_48_1.png)
+![png](output_49_1.png)
 
 
 # Radius of Curvature and Distance from Lane Center Calculation
+
+### We have a thresholded image, where I have estimated which pixels belong to the left and right lane lines and fit a polynomial to those pixel positions. Next we'll compute the radius of curvature of the fit.
 
 
 
@@ -1063,7 +1071,7 @@ plt.imshow(exampleImg_out1)
 
 
 
-![png](output_53_1.png)
+![png](output_54_1.png)
 
 
 
@@ -1099,7 +1107,7 @@ plt.imshow(exampleImg_out2)
 
 
 
-![png](output_55_1.png)
+![png](output_56_1.png)
 
 
 
